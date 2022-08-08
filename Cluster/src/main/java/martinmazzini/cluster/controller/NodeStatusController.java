@@ -1,7 +1,7 @@
-package martinmazzini.zookeeper.controller;
+package martinmazzini.cluster.controller;
 
-import martinmazzini.zookeeper.management.ClusterManager;
-import martinmazzini.zookeeper.model.NodeStatus;
+import martinmazzini.cluster.management.ClusterManager;
+import martinmazzini.cluster.model.NodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,17 +13,17 @@ public class NodeStatusController {
 
 
     @Autowired
-    ClusterManager clusterManagmentCoordinator;
+    ClusterManager clusterManager;
 
     @GetMapping("/health")
     ResponseEntity<String> heatlth() {
-        return ResponseEntity.ok("Healthy3");
+        return ResponseEntity.ok("Healthy instance");
     }
 
 
     @GetMapping("/node/status")
-    ResponseEntity<NodeStatus> nodeNumber() {
-        return ResponseEntity.ok(clusterManagmentCoordinator.getNodeStatus());
+    ResponseEntity<NodeStatus> nodeStatus() {
+        return ResponseEntity.ok(clusterManager.getNodeStatus());
     }
 
 

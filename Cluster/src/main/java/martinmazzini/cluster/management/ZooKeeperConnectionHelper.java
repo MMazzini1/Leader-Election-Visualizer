@@ -1,8 +1,8 @@
-package martinmazzini.zookeeper.clustermanagment;
+package martinmazzini.cluster.management;
 
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +31,7 @@ public class ZooKeeperConnectionHelper implements Watcher {
 
 
     public ZooKeeper connectToZookeeper() throws IOException {
-        System.out.println("ZOOKEPER ADRESS IS: " + ZOOKEEPER_ADDRESS);
+        
         this.zooKeeper = new ZooKeeper(ZOOKEEPER_ADDRESS + ":2181", SESSION_TIMEOUT, this);
         return zooKeeper;
     }
@@ -42,11 +42,11 @@ public class ZooKeeperConnectionHelper implements Watcher {
     public void process(WatchedEvent event) {
         switch (event.getType()) {
             case None:
-                if (event.getState() == Event.KeeperState.SyncConnected) {
-                    System.out.println("Successfully connected to Zookeeper");
+                if (event.getState() == Watcher.Event.KeeperState.SyncConnected) {
+                    
                 } else {
                     synchronized (zooKeeper) {
-                        System.out.println("Disconnected from Zookeeper event");
+                        
                         zooKeeper.notifyAll();
                     }
                 }

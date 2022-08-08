@@ -5,14 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff6d2858-160b-48ce-aa04-7c7c428a9330" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Zookeper-election-visualizer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Proyecto-Zookeper-Final.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/ProyectoZookeperFinalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/Entrypoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/controller/ClusterStatusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/controller/ClusterStatusController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/controller/NodeStatusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/controller/NodeStatusController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/AdressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/AdressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/ClusterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ClusterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/LeaderElection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/LeaderElection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/OnElectionAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/OnElectionAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/OnElectionCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/OnElectionCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/ServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ServiceRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/ServiceRegistryConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ServiceRegistryConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/management/ZooKeeperConnectionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ZooKeeperConnectionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/zookeeper/model/NodeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/model/NodeStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/test/java/martinmazzini/zookeeper/ProyectoZookeperFinalApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/test/java/martinmazzini/cluster/ProyectoZookeperFinalApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/ProyectoZookeperFinalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/Entrypoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/clustermanagment/AdressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/AdressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/clustermanagment/ClusterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/ClusterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/clustermanagment/ServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/ServiceRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/clustermanagment/ZooKeeperConnectionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/ZooKeeperConnectionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/controller/ClusterSummaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/controller/ClusterSummaryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/controller/Health.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/controller/Health.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/zookeeper/model/NodeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/model/NodeStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/main/resources/static/javascript.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/resources/static/javascript.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +146,7 @@
     </configuration>
     <configuration name="Cluster" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" singleton="true">
       <module name="zookeeper" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="martinmazzini.zookeeper.ProyectoZookeperFinalApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="martinmazzini.cluster.Entrypoint" />
       <option name="DEBUG_MODE" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SHORTEN_COMMAND_LINE" value="NONE" />
@@ -138,7 +156,7 @@
     </configuration>
     <configuration name="Frontend" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" singleton="false">
       <module name="zookeeper (1)" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="martinmazzini.zookeeper.ProyectoZookeperFinalApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="martinmazzini.frontend.Entrypoint" />
       <option name="DEBUG_MODE" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SHORTEN_COMMAND_LINE" value="NONE" />
@@ -188,6 +206,8 @@
       <workItem from="1659985786031" duration="54000" />
       <workItem from="1659985859282" duration="32000" />
       <workItem from="1659985944747" duration="891000" />
+      <workItem from="1659986869232" duration="379000" />
+      <workItem from="1659987615379" duration="1056000" />
     </task>
     <servers />
   </component>

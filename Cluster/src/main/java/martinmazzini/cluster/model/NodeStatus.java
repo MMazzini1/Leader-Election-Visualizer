@@ -1,4 +1,4 @@
-package martinmazzini.zookeeper.model;
+package martinmazzini.cluster.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

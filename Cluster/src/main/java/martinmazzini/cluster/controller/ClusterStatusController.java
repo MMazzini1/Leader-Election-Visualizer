@@ -1,12 +1,10 @@
-package martinmazzini.zookeeper.controller;
+package martinmazzini.cluster.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import martinmazzini.zookeeper.management.ClusterManager;
-import martinmazzini.zookeeper.management.ServiceRegistry;
-import martinmazzini.zookeeper.model.NodeStatus;
+import martinmazzini.cluster.management.ClusterManager;
+import martinmazzini.cluster.model.NodeStatus;
 import org.apache.zookeeper.KeeperException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,26 +20,26 @@ import java.util.List;
 public class ClusterStatusController {
 
     @Autowired
-    ClusterManager clusterManagmentCoordinator;
+    ClusterManager clusterManager;
 
 
 
     @PostMapping("/kill")
     ResponseEntity killNode(@RequestParam String address) throws InterruptedException, KeeperException {
-        if (!clusterManagmentCoordinator.isLeader()) {
-            //only leader supposed to serve this request
+        if (!clusterManager.isLeader()) {
+            //only leader is supposed to serve this request
             return ResponseEntity.badRequest().build();
         }
 
 
-        if (clusterManagmentCoordinator.getAdress().equals(address)){
-            //kill leader
+        if (clusterManager.getAdress().equals(address)){
+            //leader exits. Re-election will take place
             System.exit(0);
         }
 
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://" + address+ "/kill";
-        log.info("Killing follower: " + url);
+        log.info("Killing follower node: " + url);
         try{
             return restTemplate.getForEntity(url, NodeStatus.class);
         } catch (Exception e){
@@ -56,12 +54,12 @@ public class ClusterStatusController {
     @GetMapping("/cluster/status")
     ResponseEntity<List<NodeStatus>> getClusterStatus() throws InterruptedException, KeeperException {
 
-        if (!clusterManagmentCoordinator.isLeader()) {
+        if (!clusterManager.isLeader()) {
             //only leader supposed to serve this request
             return ResponseEntity.badRequest().build();
         }
 
-        List<String> workerAdressess = clusterManagmentCoordinator.getWorkerAdressess();
+        List<String> workerAdressess = clusterManager.getWorkerAdressess();
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -77,7 +75,7 @@ public class ClusterStatusController {
             }
         }
 
-        clusterStatus.add(clusterManagmentCoordinator.getNodeStatus());
+        clusterStatus.add(clusterManager.getNodeStatus());
 
         return ResponseEntity.ok(clusterStatus);
     }

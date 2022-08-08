@@ -1,15 +1,13 @@
-package martinmazzini.zookeeper.clustermanagment;
+package martinmazzini.frontend.clustermanagment;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @Slf4j

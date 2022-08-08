@@ -1,6 +1,6 @@
 
 
-package martinmazzini.zookeeper.management;
+package martinmazzini.cluster.management;
 
 public interface OnElectionCallback {
 

@@ -3,7 +3,7 @@ services:
   rest1:
     build:
       dockerfile: Dockerfile
-      context: ./RestController1
+      context: ./Frontend
     ports:
       - "8080:8080"
     environment:
@@ -14,7 +14,7 @@ services:
     stop_grace_period: 0s
     build:
       dockerfile: Dockerfile
-      context: ./RestController2
+      context: ./Cluster
     ports:
       - "8081:8081"
     environment:
@@ -25,7 +25,7 @@ services:
     stop_grace_period: 0s
     build:
       dockerfile: Dockerfile
-      context: ./RestController2
+      context: ./Cluster
     ports:
       - "8082:8082"
     environment:
@@ -36,7 +36,7 @@ services:
     stop_grace_period: 0s
     build:
       dockerfile: Dockerfile
-      context: ./RestController2
+      context: ./Cluster
     ports:
       - "8083:8083"
     environment:
@@ -47,7 +47,7 @@ services:
     stop_grace_period: 0s
     build:
       dockerfile: Dockerfile
-      context: ./RestController2
+      context: ./Cluster
     ports:
       - "8084:8084"
     environment:

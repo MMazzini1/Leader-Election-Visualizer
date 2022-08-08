@@ -1,4 +1,4 @@
-package martinmazzini.zookeeper.management;
+package martinmazzini.cluster.management;
 
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
@@ -29,7 +29,7 @@ public class LeaderElection implements Watcher {
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL);
 
-        System.out.println("znode name " + znodeFullPath);
+        
         this.currentZnodeName = znodeFullPath.replace(ELECTION_NAMESPACE + "/", "");
     }
 
@@ -57,13 +57,13 @@ public class LeaderElection implements Watcher {
             String smallestChild = children.get(0);
 
             if (smallestChild.equals(currentZnodeName)) {
-                System.out.println("I am the leader");
+                
                 status = "Leader";
                 followingZnodeName = predecessorZnodeName;
                 onElectionCallback.onElectedToBeLeader();
                 return;
             } else {
-                System.out.println("I am not the leader");
+                
                 int predecessorIndex = Collections.binarySearch(children, currentZnodeName) - 1;
                 predecessorZnodeName = children.get(predecessorIndex);
                 status = "Worker";
@@ -72,8 +72,8 @@ public class LeaderElection implements Watcher {
             }
         }
         onElectionCallback.onWorker();
-        System.out.println("Watching znode " + predecessorZnodeName);
-        System.out.println();
+        
+        
     }
 
     @Override

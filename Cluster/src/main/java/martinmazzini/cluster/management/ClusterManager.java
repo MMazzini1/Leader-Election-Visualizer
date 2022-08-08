@@ -1,6 +1,6 @@
-package martinmazzini.zookeeper.management;
+package martinmazzini.cluster.management;
 
-import martinmazzini.zookeeper.model.NodeStatus;
+import martinmazzini.cluster.model.NodeStatus;
 import org.apache.zookeeper.KeeperException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,7 +41,7 @@ public class ClusterManager {
     }
 
 
-    public  NodeStatus getNodeStatus(){
+    public NodeStatus getNodeStatus(){
         NodeStatus nodeStatus = new NodeStatus(leaderElection.getCurrentZnodeName(),
                 leaderElection.getFollowingZnodeName(),
                 adressService.getNodeAdress(),

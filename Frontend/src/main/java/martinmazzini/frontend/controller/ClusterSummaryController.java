@@ -1,8 +1,8 @@
-package martinmazzini.zookeeper.controller;
+package martinmazzini.frontend.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import martinmazzini.zookeeper.clustermanagment.ServiceRegistry;
-import martinmazzini.zookeeper.model.NodeStatus;
+import martinmazzini.frontend.clustermanagment.ServiceRegistry;
+import martinmazzini.frontend.model.NodeStatus;
 import org.apache.zookeeper.KeeperException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller

@@ -1,7 +1,7 @@
-package martinmazzini.zookeeper;
+package martinmazzini.frontend;
 
 import lombok.extern.slf4j.Slf4j;
-import martinmazzini.zookeeper.management.ClusterManager;
+import martinmazzini.frontend.clustermanagment.ClusterManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,27 +10,27 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 @Slf4j
-public class ProyectoZookeperFinalApplication{
+public class Entrypoint {
 
 
     @Autowired
-    ClusterManager clusterManagmentCoordinator;
+    ClusterManager clusterManager;
 
     public static void main(String[] args) {
-        SpringApplication.run(ProyectoZookeperFinalApplication.class, args);
+        SpringApplication.run(Entrypoint.class, args);
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void initializeCluster() throws InterruptedException {
 
-        System.out.println("hi updated 2");
+        
         boolean success = false;
-        System.out.println("lets try connect");
+        
 
         while (!success) {
             try {
                 log.info("Initializing cluster");
-                clusterManagmentCoordinator.initializeCluster();
+                clusterManager.initialize();
                 success = true;
                 log.info("Cluster initilized succesfully");
             } catch (Exception e) {
@@ -40,10 +40,6 @@ public class ProyectoZookeperFinalApplication{
         }
 
     }
-
-
-
-
 
 
 }

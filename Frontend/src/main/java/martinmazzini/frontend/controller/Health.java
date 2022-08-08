@@ -1,4 +1,4 @@
-package martinmazzini.zookeeper.controller;
+package martinmazzini.frontend.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ public class Health {
 
     @GetMapping("/health")
     ResponseEntity<String> heatlth() {
-        return ResponseEntity.ok("Healthy1 updated  eee");
+        return ResponseEntity.ok("Healthy instance");
     }
 
 

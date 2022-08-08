@@ -1,4 +1,4 @@
-package martinmazzini.zookeeper.clustermanagment;
+package martinmazzini.cluster.management;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

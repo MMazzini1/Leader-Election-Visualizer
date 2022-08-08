@@ -1,4 +1,4 @@
-package martinmazzini.zookeeper.model;
+package martinmazzini.frontend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

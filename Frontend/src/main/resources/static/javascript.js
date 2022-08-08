@@ -8,8 +8,6 @@ $( document ).ready(function() {
     var numResultsBox = $("#num_results");
     var minScoreBox = $("#min_score");
     var resultsTable = $("#results table tbody");
-    var resultsWrapper = $("#results");
-    var noResultsError = $("#no_results_error");
 
 
     const interval = setInterval(function() {
@@ -44,30 +42,6 @@ $( document ).ready(function() {
             success: onHttpResponse,
             error: onNotFound
         });
-    }
-
-
-    function createRequest() {
-        var searchQuery = searchBox.val();
-        var minScore = parseFloat(minScoreBox.val(), 10);
-        if (isNaN(minScore)) {
-            minScore = 0;
-        }
-
-        var maxNumberOfResults = parseInt(numResultsBox.val());
-
-        if (isNaN(maxNumberOfResults)) {
-            maxNumberOfResults = Number.MAX_SAFE_INTEGER;
-        }
-
-        // Search request to the server
-        var frontEndRequest = {
-            search_query: searchQuery,
-            min_score: minScore,
-            max_number_of_results: maxNumberOfResults
-        };
-
-        return JSON.stringify(frontEndRequest);
     }
 
     function onHttpResponse(data, status) {

@@ -1,1 +1,2 @@
-# leader-election-visualizer
+Leader election with ZooKeeper Visualization
+

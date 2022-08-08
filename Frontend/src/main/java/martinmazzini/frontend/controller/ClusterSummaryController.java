@@ -1,7 +1,7 @@
 package martinmazzini.frontend.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import martinmazzini.frontend.clustermanagment.ServiceRegistry;
+import martinmazzini.frontend.cluster.ServiceRegistry;
 import martinmazzini.frontend.model.NodeStatus;
 import org.apache.zookeeper.KeeperException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,26 +26,22 @@ public class ClusterSummaryController {
     @Autowired
     ServiceRegistry coordinatorsServiceRegistry;
 
+
     @CrossOrigin
     @GetMapping("/cluster/summary")
+    /** Get cluster status from cluster coordinator */
     ResponseEntity<List<NodeStatus>> getClusterStatus() throws InterruptedException, KeeperException {
 
-
-        String coordinatorAddress = coordinatorsServiceRegistry.getCoordinatorAdress();
-
+        String coordinatorAddress = coordinatorsServiceRegistry.getCoordinatorAddress();
         RestTemplate restTemplate = new RestTemplate();
-
         List<NodeStatus> clusterStatus = new ArrayList<>();
 
         String url = "http://" + coordinatorAddress + "/cluster/status";
         try {
-            ResponseEntity<List<NodeStatus>> response
-                    = restTemplate.exchange(url, HttpMethod.GET, null,
-                    new ParameterizedTypeReference<>() {
-                    });
+            ResponseEntity<List<NodeStatus>> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
             clusterStatus.addAll(response.getBody());
-        } catch (Exception e){
-            //coordinator node not available (Reelection in progress)
+        } catch (Exception e) {
+            //coordinator node not available or reelection is in progress
             return ResponseEntity.notFound().build();
         }
 
@@ -57,16 +53,16 @@ public class ClusterSummaryController {
 
     @CrossOrigin
     @PostMapping("/kill")
+    /** Kill a given node */
     public ResponseEntity kill(@RequestParam String address) throws InterruptedException, KeeperException {
-        String coordinatorAdress = coordinatorsServiceRegistry.getCoordinatorAdress();
+        String coordinatorAddress = coordinatorsServiceRegistry.getCoordinatorAddress();
 
-        if(coordinatorAdress.isEmpty()){
+        if (coordinatorAddress.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
         RestTemplate restTemplate = new RestTemplate();
-
-        String url = "http://" + coordinatorAdress + "/kill?address=" + address;
+        String url = "http://" + coordinatorAddress + "/kill?address=" + address;
         log.info("Killing node on: " + url);
         restTemplate.postForEntity(url, HttpMethod.POST, String.class);
 

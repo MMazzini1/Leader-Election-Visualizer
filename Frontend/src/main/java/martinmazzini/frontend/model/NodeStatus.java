@@ -11,7 +11,7 @@ public class NodeStatus {
 
     private String leaderElectionZnode;
     private String predecessorLeaderElectionZnode;
-    private String adress;
+    private String address;
     private String clusterStatus;
 
 

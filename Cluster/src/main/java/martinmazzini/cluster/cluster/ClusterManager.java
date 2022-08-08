@@ -1,4 +1,4 @@
-package martinmazzini.cluster.management;
+package martinmazzini.cluster.cluster;
 
 import martinmazzini.cluster.model.NodeStatus;
 import org.apache.zookeeper.KeeperException;
@@ -28,7 +28,7 @@ public class ClusterManager {
 
 
     @Autowired
-    AdressService adressService;
+    AddressService addressService;
 
 
     public void initializeCluster() throws IOException, InterruptedException, KeeperException {
@@ -44,20 +44,20 @@ public class ClusterManager {
     public NodeStatus getNodeStatus(){
         NodeStatus nodeStatus = new NodeStatus(leaderElection.getCurrentZnodeName(),
                 leaderElection.getFollowingZnodeName(),
-                adressService.getNodeAdress(),
+                addressService.getNodeAddress(),
                 leaderElection.getStatus());
         return nodeStatus;
     }
 
 
-    public List<String> getWorkerAdressess() throws InterruptedException, KeeperException {
-        List<String> workerAdressess = workerServiceRegistry.getAllServiceAddresses();
-        return workerAdressess;
+    public List<String> getWorkerAddressess() throws InterruptedException, KeeperException {
+        List<String> workerAddressess = workerServiceRegistry.getAllServiceAddresses();
+        return workerAddressess;
 
     }
 
-    public String getAdress() {
-        return adressService.getNodeAdress();
+    public String getAddress() {
+        return addressService.getNodeAddress();
     }
 
 

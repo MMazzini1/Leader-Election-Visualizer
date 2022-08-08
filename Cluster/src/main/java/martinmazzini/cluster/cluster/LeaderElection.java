@@ -1,4 +1,4 @@
-package martinmazzini.cluster.management;
+package martinmazzini.cluster.cluster;
 
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
@@ -9,12 +9,21 @@ import java.util.List;
 @Component
 public class LeaderElection implements Watcher {
     private static final String ELECTION_NAMESPACE = "/election";
-    private String currentZnodeName;
     private ZooKeeperConnectionHelper zooKeeperHelper;
     private OnElectionCallback onElectionCallback;
     private String electionZnode = "/election";
+
+    //Le
     private String status;
+    //name of corresponding znode in /election
+    private String currentZnodeName;
+    //name of the predecessor node, which this node is watching for updates
     private String followingZnodeName;
+
+
+    private enum NodeStatus{
+        LEADER, WORKER
+    }
 
     public LeaderElection(ZooKeeperConnectionHelper zooKeeperHelper, OnElectionCallback onElectionCallback) {
         this.zooKeeperHelper = zooKeeperHelper;
@@ -57,17 +66,19 @@ public class LeaderElection implements Watcher {
             String smallestChild = children.get(0);
 
             if (smallestChild.equals(currentZnodeName)) {
-                
-                status = "Leader";
+                //smallest child, node is elected to be leader
+                status = NodeStatus.LEADER.toString();
                 followingZnodeName = predecessorZnodeName;
                 onElectionCallback.onElectedToBeLeader();
                 return;
             } else {
-                
+                //worker node
+                //register
                 int predecessorIndex = Collections.binarySearch(children, currentZnodeName) - 1;
                 predecessorZnodeName = children.get(predecessorIndex);
-                status = "Worker";
+                status = NodeStatus.WORKER.toString();
                 followingZnodeName = predecessorZnodeName;
+                //watch for updated on predecessor znode
                 predecessorStat = zooKeeperHelper.getZooKeeper().exists(ELECTION_NAMESPACE + "/" + predecessorZnodeName, this);
             }
         }
@@ -92,7 +103,6 @@ public class LeaderElection implements Watcher {
     public String getCurrentZnodeName() {
         return currentZnodeName;
     }
-
 
 
     public String getStatus() {

@@ -1,6 +1,6 @@
 package martinmazzini.cluster.controller;
 
-import martinmazzini.cluster.management.ClusterManager;
+import martinmazzini.cluster.cluster.ClusterManager;
 import martinmazzini.cluster.model.NodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

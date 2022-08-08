@@ -1,4 +1,4 @@
-package martinmazzini.cluster.management;
+package martinmazzini.cluster.cluster;
 
 
 import org.apache.zookeeper.KeeperException;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 public class OnElectionAction implements OnElectionCallback {
     private final ServiceRegistry workersServiceRegistry;
     private final ServiceRegistry coordinatorsServiceRegistry;
-    private final AdressService adressService;
+    private final AddressService addressService;
 
 
     public OnElectionAction(  @Qualifier("workerServiceRegistry") ServiceRegistry workersServiceRegistry,
                                 @Qualifier("coordinatorServiceRegistry") ServiceRegistry coordinatorsServiceRegistry,
-                            AdressService adressService) {
+                            AddressService addressService) {
         this.workersServiceRegistry = workersServiceRegistry;
         this.coordinatorsServiceRegistry = coordinatorsServiceRegistry;
-        this.adressService = adressService;
+        this.addressService = addressService;
     }
 
     public void initializeRegistries(){
@@ -33,7 +33,7 @@ public class OnElectionAction implements OnElectionCallback {
         workersServiceRegistry.registerForUpdates();
 
         try {
-            String currentServerAddress = adressService.getNodeAdress();
+            String currentServerAddress = addressService.getNodeAddress();
             coordinatorsServiceRegistry.registerToCluster(currentServerAddress);
         } catch (InterruptedException | KeeperException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class OnElectionAction implements OnElectionCallback {
     @Override
     public void onWorker() {
         try {
-            String currentServerAddress = adressService.getNodeAdress();
+            String currentServerAddress = addressService.getNodeAddress();
             workersServiceRegistry.registerToCluster(currentServerAddress);
         } catch (InterruptedException | KeeperException e) {
             e.printStackTrace();

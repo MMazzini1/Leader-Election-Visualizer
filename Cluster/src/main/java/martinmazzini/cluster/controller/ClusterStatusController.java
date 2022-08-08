@@ -1,7 +1,7 @@
 package martinmazzini.cluster.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import martinmazzini.cluster.management.ClusterManager;
+import martinmazzini.cluster.cluster.ClusterManager;
 import martinmazzini.cluster.model.NodeStatus;
 import org.apache.zookeeper.KeeperException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ClusterStatusController {
         }
 
 
-        if (clusterManager.getAdress().equals(address)){
+        if (clusterManager.getAddress().equals(address)){
             //leader exits. Re-election will take place
             System.exit(0);
         }
@@ -59,19 +59,19 @@ public class ClusterStatusController {
             return ResponseEntity.badRequest().build();
         }
 
-        List<String> workerAdressess = clusterManager.getWorkerAdressess();
+        List<String> workerAddressess = clusterManager.getWorkerAddressess();
 
         RestTemplate restTemplate = new RestTemplate();
 
         List<NodeStatus> clusterStatus = new ArrayList<>();
-        for (String adress : workerAdressess) {
-            String url = "http://" + adress + "/node/status";
+        for (String address : workerAddressess) {
+            String url = "http://" + address + "/node/status";
             try {
                 ResponseEntity<NodeStatus> response
                         = restTemplate.getForEntity(url, NodeStatus.class);
                 clusterStatus.add(response.getBody());
             }catch (Exception e){
-                log.error("Call failed for address: " + adress, e);
+                log.error("Call failed for address: " + address, e);
             }
         }
 

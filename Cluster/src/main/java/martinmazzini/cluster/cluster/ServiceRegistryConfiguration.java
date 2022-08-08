@@ -1,4 +1,4 @@
-package martinmazzini.cluster.management;
+package martinmazzini.cluster.cluster;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

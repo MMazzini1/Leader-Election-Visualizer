@@ -1,10 +1,10 @@
-package martinmazzini.cluster.management;
+package martinmazzini.cluster.cluster;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AdressService {
+public class AddressService {
 
 
 
@@ -17,7 +17,7 @@ public class AdressService {
 
 
 
-    public String getNodeAdress() {
+    public String getNodeAddress() {
         return String.format(serviceName + ":" + port);
     }
 

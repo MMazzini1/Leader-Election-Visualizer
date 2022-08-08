@@ -1,6 +1,6 @@
 
 
-package martinmazzini.cluster.management;
+package martinmazzini.cluster.cluster;
 
 public interface OnElectionCallback {
 

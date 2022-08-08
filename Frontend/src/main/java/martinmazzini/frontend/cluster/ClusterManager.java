@@ -1,4 +1,4 @@
-package martinmazzini.frontend.clustermanagment;
+package martinmazzini.frontend.cluster;
 
 import org.apache.zookeeper.KeeperException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,10 @@ public class ClusterManager {
     @Autowired
     ZooKeeperConnectionHelper zookeperConnectionHelper;
 
-
     @Autowired
     ServiceRegistry coordinatorServiceRegistry;
+    
 
-
-    @Autowired
-    AdressService adressService;
 
 
     public void initialize() throws IOException, InterruptedException, KeeperException {

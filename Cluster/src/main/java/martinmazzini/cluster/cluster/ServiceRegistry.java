@@ -1,8 +1,9 @@
-package martinmazzini.frontend.clustermanagment;
+package martinmazzini.cluster.cluster;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,16 +14,30 @@ import java.util.List;
 @Slf4j
 public class ServiceRegistry implements Watcher {
 
-    public static final String COORDINATORS_REGISTRY_ZNODE = "/coordinators_service_registry";
     private ZooKeeperConnectionHelper zooKeeperHelper;
     private List<String> allServiceAddresses = null;
     private String currentZnode = null;
-    private String serviceRegistryZnode = COORDINATORS_REGISTRY_ZNODE;
-    AdressService adressService;
+    private String serviceRegistryZnode;
 
-    public ServiceRegistry(AdressService adressService, ZooKeeperConnectionHelper zooKeeperHelper) {
-        this.adressService = adressService;
-        this.zooKeeperHelper = zooKeeperHelper;
+    @Autowired
+    AddressService addressService;
+
+    public static ServiceRegistry of(ZooKeeperConnectionHelper zooKeeper, String serviceRegistryZnode) {
+        ServiceRegistry serviceRegistry = new ServiceRegistry();
+        serviceRegistry.zooKeeperHelper = zooKeeper;
+        serviceRegistry.serviceRegistryZnode = serviceRegistryZnode;
+        return serviceRegistry;
+    }
+
+
+    public void registerToCluster(String metadata) throws KeeperException, InterruptedException {
+        if (currentZnode != null) {
+            log.info("Already registered to service registry " + serviceRegistryZnode + " with address " + metadata);
+            return;
+        }
+        this.currentZnode = zooKeeperHelper.getZooKeeper().create(serviceRegistryZnode + "/n_", metadata.getBytes(),
+                ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+        log.info("Node registered to service registry " + serviceRegistryZnode + " with address " + metadata);
     }
 
     public void registerForUpdates() {
@@ -33,6 +48,18 @@ public class ServiceRegistry implements Watcher {
         }
     }
 
+    public void unregisterFromCluster() {
+        try {
+            if (currentZnode != null && zooKeeperHelper.getZooKeeper().exists(currentZnode, false) != null) {
+                zooKeeperHelper.getZooKeeper().delete(currentZnode, -1);
+                log.info("Node unregistered from registry " + serviceRegistryZnode + " : " + addressService.getNodeAddress());
+            }
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     void createServiceRegistryNode() {
         try {
@@ -51,10 +78,6 @@ public class ServiceRegistry implements Watcher {
             updateAddresses();
         }
         return allServiceAddresses;
-    }
-
-    public String getCoordinatorAdress() throws KeeperException, InterruptedException {
-        return getAllServiceAddresses().isEmpty() ? null : getAllServiceAddresses().get(0);
     }
 
     private synchronized void updateAddresses() throws KeeperException, InterruptedException {

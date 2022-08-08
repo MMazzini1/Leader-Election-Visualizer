@@ -1,9 +1,9 @@
 
-##What´s this?
+## What´s this?
 
 This repository contains an example of a working implementation of **Leader Election** and **Service Registry** algorithms implementations with **ZooKeeper**. In addition, it has a web server serving a front-end that allows for the **visualization of the cluster's state**. The whole application, including a ZooKeeper instance, is dockerized and can be run with a single docker-compose command.
 
-##How to run?
+## How to run?
 
 To run the application, download the project and run the following command in the root folder of the project.
 
@@ -14,7 +14,7 @@ Next, navigate to http://localhost:8080/index (http://localhost:8080/index)
 
   
 
-##What does the table show?
+## What does the table show?
 
   
 

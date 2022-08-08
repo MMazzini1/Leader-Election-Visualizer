@@ -1,0 +1,70 @@
+version: '3'
+services:
+  rest1:
+    build:
+      dockerfile: Dockerfile
+      context: ./RestController1
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      - SERVICE_NAME=rest1
+      - ZOOKEPER_HOST=zoo
+  rest2:
+    stop_grace_period: 0s
+    build:
+      dockerfile: Dockerfile
+      context: ./RestController2
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+      - SERVICE_NAME=rest2
+      - ZOOKEPER_HOST=zoo
+  rest3:
+    stop_grace_period: 0s
+    build:
+      dockerfile: Dockerfile
+      context: ./RestController2
+    ports:
+      - "8082:8082"
+    environment:
+        - SERVER_PORT=8082
+        - SERVICE_NAME=rest3
+        - ZOOKEPER_HOST=zoo
+  rest4:
+    stop_grace_period: 0s
+    build:
+      dockerfile: Dockerfile
+      context: ./RestController2
+    ports:
+      - "8083:8083"
+    environment:
+      - SERVER_PORT=8083
+      - SERVICE_NAME=rest4
+      - ZOOKEPER_HOST=zoo
+  rest5:
+    stop_grace_period: 0s
+    build:
+      dockerfile: Dockerfile
+      context: ./RestController2
+    ports:
+      - "8084:8084"
+    environment:
+      - SERVER_PORT=8084
+      - SERVICE_NAME=rest5
+      - ZOOKEPER_HOST=zoo
+  zoo:
+    image: zookeeper:3.4
+    restart: always
+    hostname: zoo1
+   # command: bash -c "cd bin && exec zkServer.sh start-foreground && zkCli.sh create /election ''"
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOO_TICK_TIME=100
+
+
+
+
+

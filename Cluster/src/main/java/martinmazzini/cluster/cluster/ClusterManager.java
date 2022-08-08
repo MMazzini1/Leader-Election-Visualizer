@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
 
+import static martinmazzini.cluster.cluster.LeaderElection.NodeStatus.LEADER;
+
 @Component
 public class ClusterManager {
 
@@ -62,6 +64,6 @@ public class ClusterManager {
 
 
     public boolean isLeader() {
-        return getNodeStatus().getClusterStatus().equals("Leader");
+        return getNodeStatus().getClusterStatus().equals(LEADER.name());
     }
 }

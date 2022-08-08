@@ -19,9 +19,10 @@ import java.util.List;
 @Slf4j
 public class ClusterStatusController {
 
+    public static final String STATUS_ENDPOINT = "/node/status";
+    public static final String KILL_ENDPOINT = "/kill";
     @Autowired
     ClusterManager clusterManager;
-
 
 
     @PostMapping("/kill")
@@ -32,21 +33,20 @@ public class ClusterStatusController {
         }
 
 
-        if (clusterManager.getAddress().equals(address)){
+        if (clusterManager.getAddress().equals(address)) {
             //leader exits. Re-election will take place
             System.exit(0);
         }
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://" + address+ "/kill";
+        String url = "http://" + address + KILL_ENDPOINT;
         log.info("Killing follower node: " + url);
-        try{
+        try {
             return restTemplate.getForEntity(url, NodeStatus.class);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.info("node killed");
             return ResponseEntity.ok().build();
         }
-
 
 
     }
@@ -65,12 +65,12 @@ public class ClusterStatusController {
 
         List<NodeStatus> clusterStatus = new ArrayList<>();
         for (String address : workerAddressess) {
-            String url = "http://" + address + "/node/status";
+            String url = "http://" + address + STATUS_ENDPOINT;
             try {
                 ResponseEntity<NodeStatus> response
                         = restTemplate.getForEntity(url, NodeStatus.class);
                 clusterStatus.add(response.getBody());
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.error("Call failed for address: " + address, e);
             }
         }

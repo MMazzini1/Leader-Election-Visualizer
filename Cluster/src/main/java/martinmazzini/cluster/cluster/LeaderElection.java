@@ -21,7 +21,7 @@ public class LeaderElection implements Watcher {
     private String followingZnodeName;
 
 
-    private enum NodeStatus{
+    public static enum NodeStatus{
         LEADER, WORKER
     }
 

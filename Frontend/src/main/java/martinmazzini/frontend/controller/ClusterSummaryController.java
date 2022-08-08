@@ -29,7 +29,6 @@ public class ClusterSummaryController {
 
     @CrossOrigin
     @GetMapping("/cluster/summary")
-    /** Get cluster status from cluster coordinator */
     ResponseEntity<List<NodeStatus>> getClusterStatus() throws InterruptedException, KeeperException {
 
         String coordinatorAddress = coordinatorsServiceRegistry.getCoordinatorAddress();
@@ -53,7 +52,6 @@ public class ClusterSummaryController {
 
     @CrossOrigin
     @PostMapping("/kill")
-    /** Kill a given node */
     public ResponseEntity kill(@RequestParam String address) throws InterruptedException, KeeperException {
         String coordinatorAddress = coordinatorsServiceRegistry.getCoordinatorAddress();
 

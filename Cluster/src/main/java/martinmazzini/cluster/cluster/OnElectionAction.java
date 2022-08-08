@@ -21,11 +21,6 @@ public class OnElectionAction implements OnElectionCallback {
         this.addressService = addressService;
     }
 
-    public void initializeRegistries(){
-        workersServiceRegistry.createServiceRegistryNode();;
-        coordinatorsServiceRegistry.createServiceRegistryNode();;
-    }
-
     @Override
     public void onElectedToBeLeader() {
         

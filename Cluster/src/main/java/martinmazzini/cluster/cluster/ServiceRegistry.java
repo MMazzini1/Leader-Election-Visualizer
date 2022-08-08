@@ -81,18 +81,17 @@ public class ServiceRegistry implements Watcher {
     }
 
     private synchronized void updateAddresses() throws KeeperException, InterruptedException {
+        //get registry info and also register for updates
         List<String> znodes = zooKeeperHelper.getZooKeeper().getChildren(serviceRegistryZnode, this);
 
         List<String> addresses = new ArrayList<>(znodes.size());
 
         for (String znode : znodes) {
-            //TODO RACE COND
             String serviceFullpath = serviceRegistryZnode + "/" + znode;
             Stat stat = zooKeeperHelper.getZooKeeper().exists(serviceFullpath, false);
             if (stat == null) {
                 continue;
             }
-            //TODO watch false?
             byte[] addressBytes = zooKeeperHelper.getZooKeeper().getData(serviceFullpath, false, stat);
             String address = new String(addressBytes);
             addresses.add(address);

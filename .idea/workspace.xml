@@ -6,27 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="ff6d2858-160b-48ce-aa04-7c7c428a9330" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/Entrypoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/Entrypoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ClusterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ClusterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/LeaderElection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/LeaderElection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/OnElectionAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/OnElectionAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ServiceRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/controller/ClusterStatusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/controller/ClusterStatusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/controller/NodeStatusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/controller/NodeStatusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/AdressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/AddressService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ClusterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ClusterManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/LeaderElection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/LeaderElection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/OnElectionAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/OnElectionAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/OnElectionCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/OnElectionCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ServiceRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ServiceRegistryConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ServiceRegistryConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/management/ZooKeeperConnectionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ZooKeeperConnectionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/model/NodeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/model/NodeStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/Entrypoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/Entrypoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/AdressService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/ClusterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/cluster/ClusterManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/ServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/cluster/ServiceRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/clustermanagment/ZooKeeperConnectionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/cluster/ZooKeeperConnectionHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/controller/ClusterSummaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/controller/ClusterSummaryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/controller/Health.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/controller/HealthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/model/NodeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/java/martinmazzini/frontend/model/NodeStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/main/resources/static/javascript.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/main/resources/static/javascript.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +86,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.index.html">
+  <component name="RunManager" selected="Spring Boot.Frontend">
     <configuration name="ProyectoZookeperFinalApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="martinmazzini.zookeeper.ProyectoZookeperFinalApplication" />
       <module name="Zookeper-election-visualizer" />
@@ -203,7 +188,7 @@
       <workItem from="1659985859282" duration="32000" />
       <workItem from="1659985944747" duration="891000" />
       <workItem from="1659986869232" duration="379000" />
-      <workItem from="1659987615379" duration="2201000" />
+      <workItem from="1659987615379" duration="2841000" />
     </task>
     <servers />
   </component>
@@ -221,6 +206,17 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Cluster/src/main/java/martinmazzini/cluster/cluster/ClusterManager.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

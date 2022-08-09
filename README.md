@@ -9,7 +9,7 @@ To run the application, download the project and run the following command in th
 
 *docker-compose up --build*
 
-Next, navigate to http://localhost:8080/index (http://localhost:8080/index)
+Next, navigate to http://localhost:8080/index
   and you will be presented with the following table on the web browser.
   ![image](https://user-images.githubusercontent.com/25701657/183554630-ea8eac2c-c9fe-4c8d-87cb-6f7370bb5b76.png)
 

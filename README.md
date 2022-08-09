@@ -48,8 +48,45 @@ The table shows the state of the cluster. Each row in the table corresponds to a
 -   **Address:** the address being used to communicate with this node in the docker-compose network.
 -   **Kill instance:** a button to terminate the node. It executes a System.exit() inside the java app of the container. It´s just an easier alternative to manually stopping the container.
 
-## How to see the Leader Election process in action?
+## What is ZooKeeper?
 
+It´s a service designed for coordination in distributed systems, providing an abstraction layer for higher level distributed algorithms. It´s, for example, used by Kafka for tracking status of nodes and to determine the leader of each partitions (although supposedly about to be phased out in favor of internal technology). ZooKeeper it´s in itself a distributed system (typically running in an cluster of an odd number of nodes) for high availability, but for this project it´s just a single instance running.
+
+<![endif]-->
+
+### Data Model
+
+The data model offered by ZooKeeper it´s a hierarchical similar to a file system. You define so called znodes, and each of these can store both data and children znodes. Although it looks like a filesystem, the data it´s only stored in memory.
+
+![image](https://user-images.githubusercontent.com/25701657/183558180-474d65a9-7033-4e71-b2b9-f6528aa5c93e.png)
+
+Source: https://zookeeper.apache.org/doc/current/zookeeperOver.html
+
+There´s two types of nodes available, ephemeral and persistent. The ephemereal type is deleted when a session ends (when ZooKeeper determines that the client got disconnected). On the contrary, the persistent type can persist in between sessions. You can also define nodes to be sequential, in which case they are automatically assigned an strictly increasing number on creation time. This will be important for the leader election process. 
+
+The other important feature offered by ZooKeeper used in this project are Watchers. This allow the application to be notified when a change in a znode happens (if it´s data changes, of if a node is added/deleted under it´s path). From the (Java) programming perspective, if you want to subscribe to notifications, you need to pass an implementation of the Watcher interface when you call one of the corresponding methods. This implementation will receive a callback when the notification is triggered. These notifications are a one time trigger, and you have to call the methods again if you want to re-subscribe. In this example, we are only concerned with the following methods:
+- getChildren => returns a list of the children of the node under a given path (optionally pass a Watcher)
+- exists => to check if node exists  (optionally pass a Watcher)
+- getData => Return the data of the node of the given path  (optionally pass a Watcher)
+More info of ZooKeeper´s API: https://zookeeper.apache.org/doc/r3.3.3/api/org/apache/zookeeper/ZooKeeper.html
+
+
+## How is the Leader Election algorithm implemented with ZooKeeper?
+
+With all that being said, the Leader Election algorithm is pretty simple to understand. On startup, each node (Java process) will create a ephemereal, sequential znode under the /election znode path of ZooKeeper. Because they are sequential, the creted znodes will get assigned an strictly increasing number. The process that created the znode with the smallest sequence number is the leader, and the rest are workers.
+
+## How does re-election happen?
+
+For re-election to happen, all the workers need to watch for failures of the leader, so that one of the workers arises as the new leader in the case of leader´s failure. To avoid herd effect (meaning, to avoid bombarding ZooKeeper at the same time when the leader fails) a better solution is for each node to just listen to it´s znode predecessor's.
+
+
+## How is the Service Registry implemented with ZooKeeper?
+
+
+
+
+
+## How to see the Leader Election process in action?
 
 
 Just press the “Kill instance” button in one of the row´s (or stop one of the containers using the docker CLI or Docker Desktop). The behavior will differ depending on the node´s type. 
@@ -77,32 +114,3 @@ When leader node is down, the front-end can no longer obtain the state of the cl
 After Leader Election takes place, some other node (in this case, the one on port 8083), the following node in the znode´s succession takes it´s place and can start serving requests again.
 
 <![endif]-->
-
-## What is ZooKeeper?
-
-It´s a service designed for coordination in distributed systems, providing an abstraction layer for higher level distributed algorithms. It´s, for example, used by Kafka for tracking status of nodes and to determine the leader of each partitions (although supposedly about to be phased out in favor of internal technology). ZooKeeper it´s in itself a distributed system (typically running in an cluster of an odd number of nodes) for high availability, but for this project it´s just a single instance running.
-
-<![endif]-->
-
-### Data Model
-
-The data model offered by ZooKeeper it´s a hierarchical similar to a file system. You define so called znodes, and each of these can store both data and children znodes. Although it looks like a filesystem, the data it´s only stored in memory.
-
-![image](https://user-images.githubusercontent.com/25701657/183558180-474d65a9-7033-4e71-b2b9-f6528aa5c93e.png)
-
-Source: https://zookeeper.apache.org/doc/current/zookeeperOver.html
-
-There´s two types of nodes available, ephemeral and persistent. The ephemereal type is deleted when a session ends (when ZooKeeper determines that the client got disconnected). On the contrary, the persistent type can persist in between sessions. You can also define nodes to be sequential, in which case they are automatically assigned an strictly increasing number on creation time. This will be important for the leader election process. 
-
-Another important feature offered by ZooKeeper are watchers and triggers. This allow the application to be notified when a change in a znode happens (if it´s data changes, of if a node is added/deleted under it´s path). From the (Java) programming perspective, for subscribing to notifications, you need to pass an implementation of the Watcher interface when you call one of the corresponding methods, which will receive a callback when the notification is triggered. This notifications are a one time trigger, and you have to call the methods again if you want to re-subscribe. In this example, we are only concerned with the following methods:
-- getChildren => returns a list of the children of the node of the given path (optionally pass a Watcher for subscribing for notifications)
-- exists => to check if node exists (optionally pass a Watcher for subscribing for notifications)
-- getData => Return the data of the node of the given path (optionally pass a Watcher for subscribing for notifications)
-More info of ZooKeeper´s API: https://zookeeper.apache.org/doc/r3.3.3/api/org/apache/zookeeper/ZooKeeper.html
-
-
-## How is the Leader Election algorithm implemented with ZooKeeper?
-
-There´s two types of nodes available, ephemeral and persistent. The ephemereal type is deleted when a session ends (when ZooKeeper determines that the client got disconnected). The persistent type can persist in between sessions. You can also define nodes to be sequential, in which case they are automatically assigned an strictly increasing number on creation time. This will be important for the leader election process.
-
-## How is the Service Registry implemented with ZooKeeper?

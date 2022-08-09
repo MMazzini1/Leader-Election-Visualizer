@@ -155,6 +155,8 @@ Leader node down, some error message is shown.
 ![image](https://user-images.githubusercontent.com/25701657/183574217-187f854f-4fb6-4dbd-9903-742231bd77e6.png)
 After Leader Election completes, the following node in the succession has taken the leader's place and starts responding to requests.
 
+### If you add a node
 
+It´s also possible to restart a container after having stopped it (with the Docker CLI / Docker Desktop), in which case the table will show a new row representing the new member of the cluster. It will join as last node on the sucession.
 
 

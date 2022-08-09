@@ -56,11 +56,15 @@ It´s a service designed for coordination in distributed systems, providing an a
 
 ### Data Model
 
-The data model offered by ZooKeeper it´s a hierarchical similar to a file system. You define so called znodes, and each of these can store both data and children znodes. Although it looks like a filesystem, the data it´s only stored in memory.
+The data model offered by ZooKeeper it´s hierarchical, similar to a file system. You define so called znodes, and each of these can store both data and children znodes. Although it looks like a filesystem, the data it´s only stored in memory.
 
 ![image](https://user-images.githubusercontent.com/25701657/183558180-474d65a9-7033-4e71-b2b9-f6528aa5c93e.png)
 
 Source: https://zookeeper.apache.org/doc/current/zookeeperOver.html
+
+For this project, we will use three znodes that will act as "folders" (meaning, we create other znodes under their path). The belowimage show these three znodes when being queried with ZooKeeper's cli.
+![image](https://user-images.githubusercontent.com/25701657/183562788-89532a50-44ee-46e2-8752-be94a7874ccd.png)
+
 
 There´s two types of nodes available, ephemeral and persistent. The ephemereal type is deleted when a session ends (when ZooKeeper determines that the client got disconnected). On the contrary, the persistent type can persist in between sessions. You can also define nodes to be sequential, in which case they are automatically assigned an strictly increasing number on creation time. This will be important for the leader election process. 
 
@@ -75,15 +79,25 @@ More info of ZooKeeper´s API: https://zookeeper.apache.org/doc/r3.3.3/api/org/a
 
 With all that being said, the Leader Election algorithm is pretty simple to understand. On startup, each node (Java process) will create a ephemereal, sequential znode under the /election znode path of ZooKeeper. Because they are sequential, the creted znodes will get assigned an strictly increasing number. The process that created the znode with the smallest sequence number is the leader, and the rest are workers.
 
+In the following example from ZooKeeper's CLI, the process which created znode c_0000000012 it's the one elected as a leader.
+![image](https://user-images.githubusercontent.com/25701657/183562914-e0624274-dc66-4fad-acfb-61a2df9acaec.png)
+
+The below diagram shows another hypothetical configuration. The dashed line connects the znodes with the process that created them.
+
+![image](https://user-images.githubusercontent.com/25701657/183563702-da6b15f7-1235-4c70-9c03-067a32345588.png)
+
+
+
 ## How does re-election happen?
 
 For re-election to happen, all the workers need to watch for failures of the leader, so that one of the workers arises as the new leader in the case of leader´s failure. To avoid herd effect (meaning, to avoid bombarding ZooKeeper at the same time when the leader fails) a better solution is for each node to just listen to it´s znode predecessor's.
+In the following diagram, the dashed arrow corresponds to the znode being watched by each process.
+![image](https://user-images.githubusercontent.com/25701657/183564016-e677248a-e7fc-465d-a2b9-08460922a85c.png)
 
 
 ## How is the Service Registry implemented with ZooKeeper?
 
-
-
+The service registry is pretty easy to implement. During Leader Election, worker nodes register themselves in the /workers_service_registry, and the leader does the same in /coordinators_service_registry (and de-registers itself if it was previously under the workers_service_registry, in case of re-election). The clients of the registries have to watch for changes in these paths, so that they get updated if a node is changed/removed/added from the registry.
 
 
 ## How to see the Leader Election process in action?

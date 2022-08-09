@@ -91,15 +91,23 @@ The below diagram shows another hypothetical configuration. The dashed line conn
 
 ## How does re-election happen?
 
-For re-election to happen, all the workers need to watch for failures of the leader, so that one of the workers arises as the new leader in the case of leader´s failure. To avoid herd effect (meaning, to avoid bombarding ZooKeeper at the same time when the leader fails) a better solution is for each node to just listen to it´s znode predecessor's.
-In the following diagram, the dashed arrow corresponds to the znode being watched by each process.
+For re-election to happen, all the workers need to watch for failures of the leader, so that one of the workers arises as the new leader in the case of leader´s failure. To avoid herd effect (meaning, to avoid bombarding ZooKeeper at the same time when the leader fails) a better solution is for each node to just listen to it´s znode predecessor's. From a code perspective, it just menas re-running the leader election algorithm when a node gets notified. 
+In the following diagram, the dashed arrow shows the znode being watched by each process.
 
 ![image](https://user-images.githubusercontent.com/25701657/183564016-e677248a-e7fc-465d-a2b9-08460922a85c.png)
+
+If the leader Node would die, the following configuration would result after the re-election.
+![image](https://user-images.githubusercontent.com/25701657/183565151-8de7e76c-0cb5-4d1e-bf55-0a967f9149d6.png)
+
+And if instead of the leader, node 3 would fail, then the below configuration would follow the re-election.
+![image](https://user-images.githubusercontent.com/25701657/183565372-f361b3a4-e396-4e2e-8848-e0be347b28d8.png)
+
+
 
 
 ## How is the Service Registry implemented with ZooKeeper?
 
-The service registry is pretty easy to implement. During Leader Election, worker nodes register themselves in the /workers_service_registry, and the leader does the same in /coordinators_service_registry (and de-registers itself if it was previously under the workers_service_registry, in case of re-election). The clients of the registries have to watch for changes in these paths, so that they get updated if a node is changed/removed/added from the registry.
+The service registry is pretty easy to implement. During Leader Election, worker nodes register themselves in the /workers_service_registry, and leader node does the same under /coordinators_service_registry. It also has to de-register itself from the workers_service_registry, in case it was a worker and it´s now elected as leader during re-election. The consumers of either registry have to watch for changes in these paths, so that they get updated if a node is changed/removed/added from the registry.
 
 
 ## How to see the Leader Election process in action?

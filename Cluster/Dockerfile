@@ -5,7 +5,8 @@ COPY src /build/src/
 
 WORKDIR /build/
 
-RUN --mount=type=cache,target=/root/.m2 mvn -Dmaven.test.skip=true package -Ptest # This line does not work properly
+RUN --mount=type=cache,target=/root/.m2 mvn -Dmaven.test.skip=true package -Ptest
+
 
 FROM amazoncorretto:11
 

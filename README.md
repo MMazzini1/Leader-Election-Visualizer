@@ -75,6 +75,9 @@ For this project, we will use three znodes that will act as "folders" (meaning, 
 
 Znodes can be one of two types, ephemeral and persistent. The ephemeral type is deleted when a session ends (when ZooKeeper determines that the client got disconnected). On the contrary, the persistent type can persist in between sessions. You can also define nodes to be sequential, in which case they are automatically assigned a strictly increasing number on creation time. This will be important for the leader election process. 
 
+### Watchers 
+
+
 The other important feature offered by ZooKeeper and used in this project is Watchers. This allows the application to be notified when a change in a znode happens (if its data changes, or if a node is added/deleted under its path). From the (Java) programming perspective, if you want to subscribe to notifications, you need to pass an implementation of the Watcher interface when you call one of the corresponding methods. This implementation will receive a callback when the notification is triggered. These notifications are a one-time trigger, and you have to call the methods again if you want to re-subscribe. In this project, we are only concerned with the following methods:
 - getChildren => returns a list of the children under a given path (znode) (optionally pass a Watcher)
 - exists => to check if a znode exists  (optionally pass a Watcher)

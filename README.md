@@ -10,7 +10,7 @@ To run the application, download the project and run the following command in th
 *docker-compose up --build*
 
 Next, navigate to http://localhost:8080/index
-  and you will be presented with the following table on the web browser.
+  and you will be presented with the following table on the web browser. The following sections explain what the table means and how to interact with the cluster´s nodes. For this, there´s a quick explanation of ZooKeeper service, Leader Election and Service Disocvery processes.
   ![image](https://user-images.githubusercontent.com/25701657/183554630-ea8eac2c-c9fe-4c8d-87cb-6f7370bb5b76.png)
 
 
@@ -18,13 +18,13 @@ Next, navigate to http://localhost:8080/index
 
 ## What exactly does the docker-compose.yml file include?
 
-The below diagram shows a quick visualization of the components which are mentioned in the following paragraphs.
+The below diagram shows a quick visualization of the components included in the docker-compose.yml.file, which are detailed in the following paragraphs.
 
 ![image](https://user-images.githubusercontent.com/25701657/183552354-02267f0a-d77e-487f-92a3-2bc95c47f8d1.png)
 
 When you start the docker-compose.yml images, the following happens. 
 
- - A web server is stared on port 8080 (a Java Spring app, but could be anything), which serves the (very rudimentary) front end of the application. This web server only communicates with the leader node of the cluster. For this purpose, it uses ZooKeeper to dynamically discover the leader address. If the leader is down, a reelection process will take place and the new leader´s address will be updated in the leaders service registry. The source code of the web server is under the “Frontend” folder.
+ - A web server is started on port 8080 (a Java Spring app, but could be anything), which serves the (very rudimentary) front end of the application. This web server only communicates with the leader node of the cluster. For this purpose, it uses ZooKeeper to dynamically discover the leader address. If the leader is down, a reelection process will take place and the new leader´s address will be updated in the leaders service registry. The source code of the web server is under the “Frontend” folder.
  
 - A ZooKeeper instance starts listening on the default ZooKeeper´s port (2181). ZooKeeper is used for Leader Election by the cluster's nodes, and also as a Service Registry for Service Discovery of both Leader and Worker nodes (there´s one registry for each type).
 

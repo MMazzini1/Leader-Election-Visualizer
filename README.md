@@ -1,6 +1,7 @@
 
 
 
+
 ## What´s this?
 
 This repository contains an example of a working implementation of **Leader Election** and **Service Discovery** implementations with **ZooKeeper**. In addition, it has a web server serving a front-end that allows for the **visualization of the cluster's state**. The whole application, including a ZooKeeper instance, is dockerized and can be run with a single docker-compose command.
@@ -12,7 +13,7 @@ To run the application, download the project and run the following command in th
 *docker-compose up --build*
 
 Next, navigate to http://localhost:8080/index
-  and you will be presented with the following table on the web browser. The following sections offer a quick explanation of ZooKeeper service, Leader Election, and Service Discovery processes. For interacting with the cluster and seeing it in action, refer to the **How to see the Leader Election process in action section**.
+  and you will be presented with the following table on the web browser. The following sections offer a quick explanation of ZooKeeper service, Leader Election, and Service Discovery processes. If you would prefer to interact with the cluster and see it in action, you can go straight to **How to see the Leader Election process in action section**.
   
   ![image](https://user-images.githubusercontent.com/25701657/183554630-ea8eac2c-c9fe-4c8d-87cb-6f7370bb5b76.png)
 
@@ -157,6 +158,6 @@ After Leader Election completes, the following node in the succession has taken 
 
 ### If you add a node
 
-It´s also possible to restart a container after having stopped it (with the Docker CLI / Docker Desktop), in which case the table will show a new row representing the new member of the cluster. It will join as last node on the sucession.
+It´s also possible to restart a container after having stopped it (with the Docker CLI / Docker Desktop), in which case the table will show a new row representing the new member of the cluster. It will join as the last node on the succession.
 
 

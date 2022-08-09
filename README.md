@@ -12,23 +12,30 @@ To run the application, download the project and run the following command in th
 Next, navigate to http://localhost:8080/index (http://localhost:8080/index)
   and you will be presented with the following screen.
 
-  
-  <![endif]-->
+
 
 ## What exactly does the docker-compose.yml file include?
 
-When you start the docker-compose.yml images, the following happens:
+When you start the docker-compose.yml images, the following happens. Refer to the diagram below for a quick visualization of the components.
 
- - A web server is stared on port 8080, which serves the (very rudimentary) front-end assets. It only communicates with the leader node of the cluster, for which it uses ZooKeeper to dynamically discover it´s address (which of course would change if the leader node dies, after the reelection process). The source code of the web server is under the “Frontend” folder in the project.
+ - A web server is stared on port 8080, which serves the (very rudimentary) front end of the application. This web server only communicates with the leader node of the cluster. For this purpose, it uses ZooKeeper to dynamically discover the leader address. If the leader is down, a reelection process will take place and the new leader´s address will be updated in the leaders service registry. The source code of the web server is under the “Frontend” folder.
  
-- A ZooKeeper instance starts listening on the default ZooKeeper´s port (2181). ZooKeeper is used for Leader Election of the cluster, and also as a Service Registry for Service Discovery of both Leader and Worker nodes.
+- A ZooKeeper instance starts listening on the default ZooKeeper´s port (2181). ZooKeeper is used for Leader Election by the cluster's nodes, and also as a Service Registry for Service Discovery of both Leader and Worker nodes (there´s one registry for each type).
 
-- Four cluster nodes instances are started. During start-up, one of these instances will be elected as a leader, and the remaining three will be elected as workers. If the leader dies, a reelection process will take place, and a new leader will be elected (see Leader Election process). The nodes will also dynamically add and remove themselves from leader and workers service registries, so that their addresses can be discovered by other services. It´s important to mention that the four nodes share the same source code (under the “Cluster” folder). It´s only the outcome of the Leader Election process (whether the node it´s elected as a Leader or a Worker) that will determine the runtime behavior of the nodes.
+- Four cluster nodes instances are started. During start-up, one of these instances will be elected as a leader, and the remaining three will be elected as workers. If the leader dies, a reelection process will take place, and a new leader will be elected (see Leader Election process). The nodes will also dynamically add and remove themselves from the leader and workers service registries, so that their addresses can be discovered by other services. The four nodes share the same source code (under the “Cluster” folder). Only the outcome of the Leader Election process (whether determines the runtime behavior of the nodes, behaving either as a Leader or a Worker.
 
-The following diagram shows the five containers that start when you run the docker-compose file, with some arrows to show the communication happening between them.
+- On startup, the first Leader Election process takes place. For this, ZooKeeper's /election znode is used (see Leader Election section). During Leader Election, the Leader node registers itself in the /coordinators_service_registry znode, and workers nodes register themselves in the /workers_service_registry znode (see ZooKeeper section for very basic understanding of how it works).
 
-## What does the table show?
+![image](https://user-images.githubusercontent.com/25701657/183552354-02267f0a-d77e-487f-92a3-2bc95c47f8d1.png)
 
+The arrows in the below diagram show the communication sequence happening between the components whent the front-end retrieves the state of the cluster. The numbers correspond to the relative order of each call. 
+
+![image](https://user-images.githubusercontent.com/25701657/183554469-a06c6e04-f803-4e7a-8fcb-9a0b91a6bc41.png)
+
+
+
+
+## What does the table mean?
  
 The table shows the state of the cluster. Each row in the table corresponds to a node in the cluster, and has the following information:
 
@@ -75,11 +82,11 @@ It´s a service designed for coordination in distributed system, providing an ab
 
 ### Data Model
 
-The data model that ZooKeeper offers it´s similar to a file system. You can define znodes, and each of these can store both data and children znodes. Although it looks like a filesystem, the data it´s only stored in memory, not in disk.
+The data model offered by ZooKeeper it´s similar to a file system. You define so called znodes, each of these can store both data and children znodes. Although it looks like a filesystem, the data it´s only stored in memory, not in disk.
 
 Source: https://zookeeper.apache.org/doc/current/zookeeperOver.html
 
-It´s also important to mention the two types of nodes available, ephemeral and persistent. The ephemereal type is deleted when a session ends (when the client is disconnected from ZooKeeper), and the persistent type persists between sessions. Both types are used in this example. You can also define nodes to be sequential, in which case they are assigned an strictly increasing number when they are created. This is important for the leader election process.
+There´s two types of nodes available, ephemeral and persistent. The ephemereal type is deleted when a session ends (when ZooKeeper determines that the client got disconnected). The persistent type can persist in between sessions. You can also define nodes to be sequential, in which case they are automatically assigned an strictly increasing number when on creation time. This will be important for the leader election process.
 
 ## How is the Leader Election algorithm implemented with ZooKeeper?
 

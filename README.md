@@ -80,6 +80,7 @@ More info of ZooKeeper´s API: https://zookeeper.apache.org/doc/r3.3.3/api/org/a
 With all that being said, the Leader Election algorithm is pretty simple to understand. On startup, each node (Java process) will create a ephemereal, sequential znode under the /election znode path of ZooKeeper. Because they are sequential, the creted znodes will get assigned an strictly increasing number. The process that created the znode with the smallest sequence number is the leader, and the rest are workers.
 
 In the following example from ZooKeeper's CLI, the process which created znode c_0000000012 it's the one elected as a leader.
+
 ![image](https://user-images.githubusercontent.com/25701657/183562914-e0624274-dc66-4fad-acfb-61a2df9acaec.png)
 
 The below diagram shows another hypothetical configuration. The dashed line connects the znodes with the process that created them.
@@ -92,6 +93,7 @@ The below diagram shows another hypothetical configuration. The dashed line conn
 
 For re-election to happen, all the workers need to watch for failures of the leader, so that one of the workers arises as the new leader in the case of leader´s failure. To avoid herd effect (meaning, to avoid bombarding ZooKeeper at the same time when the leader fails) a better solution is for each node to just listen to it´s znode predecessor's.
 In the following diagram, the dashed arrow corresponds to the znode being watched by each process.
+
 ![image](https://user-images.githubusercontent.com/25701657/183564016-e677248a-e7fc-465d-a2b9-08460922a85c.png)
 
 

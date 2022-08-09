@@ -10,7 +10,7 @@ To run the application, download the project and run the following command in th
 *docker-compose up --build*
 
 Next, navigate to http://localhost:8080/index
-  and you will be presented with the following table on the web browser. The following sections explain what the table means and how to interact with the cluster´s nodes. For this, there´s a quick explanation of ZooKeeper service, Leader Election and Service Disocvery processes.
+  and you will be presented with the following table on the web browser. The following sections are a quick explanation of ZooKeeper service, Leader Election, and Service Discovery processes. For interacting with the cluster and seeing it in action, refer to the How to see the Leader Election process in action section.
   
   ![image](https://user-images.githubusercontent.com/25701657/183554630-ea8eac2c-c9fe-4c8d-87cb-6f7370bb5b76.png)
 

@@ -1,5 +1,6 @@
 
 
+
 ## What´s this?
 
 This repository contains an example of a working implementation of **Leader Election** and **Service Discovery** implementations with **ZooKeeper**. In addition, it has a web server serving a front-end that allows for the **visualization of the cluster's state**. The whole application, including a ZooKeeper instance, is dockerized and can be run with a single docker-compose command.
@@ -98,11 +99,11 @@ In the following diagram, the dashed arrow shows the znode being watched by each
 
 ![image](https://user-images.githubusercontent.com/25701657/183564016-e677248a-e7fc-465d-a2b9-08460922a85c.png)
 
-When a node gets a notification (because it´s predecessor's ephemeral node got deleted after the process died) it will just re-run the leader election algorithm. If the node that just died had been the leader, the following configuration would result after re-election.
+When a node gets a notification (because its predecessor's ephemeral node got deleted after the process died) it will just re-run the leader election algorithm. If the node that just died had been the leader, the following configuration would result after re-election.
 
 ![image](https://user-images.githubusercontent.com/25701657/183565151-8de7e76c-0cb5-4d1e-bf55-0a967f9149d6.png)
 
-If, instead of the leader, node 3 would have failed, then the below configuration would result after the re-election.
+If instead of the leader, node 3 would have failed, then the below configuration would result after the re-election.
 
 ![image](https://user-images.githubusercontent.com/25701657/183565833-3121b206-9b47-4e4b-8343-e6ffe9dc9b92.png)
 
@@ -117,13 +118,22 @@ The service registry is pretty easy to implement. During Leader Election, worker
 
 Just press the “Kill instance” button in one of the rows (or stop one of the containers using the docker CLI or Docker Desktop). The behavior will differ depending on the node´s type. 
 
-**Important note**: the Leader Election takes some time (less than a minute) to complete. This time is given by the sum of the time that the Java process takes to exit, plus the ZooKeeper session timeout threshold, plus the time of the Leader re-election process.
+**Note**: the Leader Election takes some time (less than a minute) to complete. This time is given by the sum of the time that the Java process takes to exit, plus the ZooKeeper session timeout threshold, plus the time of the Leader re-election process.
 
 
-### Stopping a Worker Node
+### If you stop a worker node
 
-In this case, the node that was listening for updates on this node will start to listen to this node’s predecessor, closing the “gap” that would remain otherwise. The following images show this process taking place when the node listening on port 8084 is killed.
+In this case, the leader node can still respond to the web server´s query for the state of the cluster. What will happen eventually, after the re-election process, it's just that the "Watching znode" column of the node listening to the deleted znodes trigger will get updated, closing the gap in the chain, in the same way as depicted in the third diagram under the **How does re-election happen? section**.  
+The following is a succession of images showing this process when node 8084 is killed.
 
+![image](https://user-images.githubusercontent.com/25701657/183573697-515dc4c3-6b3b-4134-af69-c2e6288de015.png)
+The initial state of the cluster
+
+![image](https://user-images.githubusercontent.com/25701657/183573726-6a5e2ad7-6e7c-4bd2-9699-5f405b8853b1.png)
+Outdated state seconds after node4 got terminated. Node1 is watching zNode c_00...0014, which doesn´t exist anymore.
+
+![image](https://user-images.githubusercontent.com/25701657/183573987-f093b77c-e6fa-44b6-a26e-0dd90e2837eb.png)
+Leader re-lection completed after some more seconds. Node1 has been updated and is watching zNode c_00...0013, its new predecessor.
 
 State of the cluster before stopping node listening on 8084.
 
@@ -131,12 +141,20 @@ Node listening on 8084 disappears from the table. The “Watching Znode” field
 
 After a couple of seconds, when leader reelection ends, the “Watching Znode” field of node listening on port 8083 it´s updated to point to c_00000000000, closing the gap.
 
-### Stopping a Leader Node 
+### If you stop a leader node  
 
-State of the cluster before stopping the leader node.
+When the Leader is down, there´s no one to respond to the front-end query for the state of the cluster. During the failover period (while re-election takes place) the front-end will receive 404 as a response and show a temporary error message. When re-election takes place, the new leader will start serving the requests, and it will show the new cluster configuration with the new leader (the same situation as the third diagram under the How does re-election happen? section).
+The following images show this process when node 8084 is killed.
 
-When the leader node is down, the front-end can no longer obtain the state of the cluster, and some error message is shown by the front-end.
+![image](https://user-images.githubusercontent.com/25701657/183574067-8a9a49fa-ece4-4fee-8ad6-77fdc1116bab.png)
+The initial state of the cluster
 
-After Leader Election takes place, some other node (in this case, the one on port 8083), the following node in the znode´s succession takes its place and can start serving requests again.
+![image](https://user-images.githubusercontent.com/25701657/183574105-fb04d540-b84b-415e-914d-719be230c70b.png)
+Leader node down, some error message is shown.
 
-<![endif]-->
+![image](https://user-images.githubusercontent.com/25701657/183574217-187f854f-4fb6-4dbd-9903-742231bd77e6.png)
+After Leader Election completes, the following node in the succession has taken the leader's place and starts responding to requests.
+
+
+
+

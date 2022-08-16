@@ -1,21 +1,19 @@
 ## Table of contents
 
-- [What´s this?](#what-s-this-)
-- [How to run?](#how-to-run-)
-- [What exactly does the docker-compose.yml file include?](#what-exactly-does-the-docker-composeyml-file-include-)
-- [What do the table's rows mean?](#what-do-the-table-s-rows-mean-)
-- [What is ZooKeeper?](#what-is-zookeeper-)
-  * [Data Model](#data-model)
-  * [Watchers](#watchers)
-- [How is the Leader Election algorithm implemented with ZooKeeper?](#how-is-the-leader-election-algorithm-implemented-with-zookeeper-)
-- [How does re-election happen?](#how-does-re-election-happen-)
-- [How is the Service Registry implemented with ZooKeeper?](#how-is-the-service-registry-implemented-with-zookeeper-)
-- [How to see the Leader Election process in action?](#how-to-see-the-leader-election-process-in-action-)
-  * [If you stop a worker node](#if-you-stop-a-worker-node)
-  * [If you stop a leader node](#if-you-stop-a-leader-node)
-  * [If you add a node](#if-you-add-a-node)
-
-
+- [What´s this?](#whats-this)
+- [How to run?](#how-to-run)
+- [What exactly does the docker-compose.yml file include?](#what-exactly-does-the-docker-composeyml-file-include)
+- [What do the table's rows mean?](#what-do-the-tables-rows-mean)
+- [What is ZooKeeper?](#what-is-zookeeper)
+  - [Data Model](#data-model)
+  - [Watchers](#watchers)
+- [How is the Leader Election algorithm implemented with ZooKeeper?](#how-is-the-leader-election-algorithm-implemented-with-zookeeper)
+- [How does re-election happen?](#how-does-re-election-happen)
+- [How is the Service Registry implemented with ZooKeeper?](#how-is-the-service-registry-implemented-with-zookeeper)
+- [How to see the Leader Election process in action?](#how-to-see-the-leader-election-process-in-action)
+  - [If you stop a worker node](#if-you-stop-a-worker-node)
+  - [If you stop a leader node](#if-you-stop-a-leader-node)
+  - [If you add a node](#if-you-add-a-node)
 
 
 

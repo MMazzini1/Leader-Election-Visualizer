@@ -20,7 +20,7 @@
 
 ## What´s this?
 
-This repository contains an example of a working implementation of **Leader Election** and **Service Discovery** implementations with **ZooKeeper**. In addition, it has a web server serving a front-end that allows for the **visualization of the cluster's state**. The whole application, including a ZooKeeper instance, is dockerized and can be run with a single docker-compose command.
+This repository contains an example of a working implementation of **Leader Election** and **Service Discovery** with **ZooKeeper**. In addition, it has a web server serving a front-end that allows for the **visualization of the cluster's state**. The whole application, including a ZooKeeper instance, is dockerized and can be run with a single docker-compose command.
 
 ## How to run?
 
@@ -94,11 +94,11 @@ Znodes can be one of two types, ephemeral and persistent. The ephemeral type is 
 ### Watchers 
 
 
-The other important feature offered by ZooKeeper and used in this project is Watchers. This allows the application to be notified when a change in a znode happens (if its data changes, or if a node is added/deleted under its path). From the (Java) programming perspective, if you want to subscribe to notifications, you need to pass an implementation of the Watcher interface when you call one of the corresponding methods. This implementation will receive a callback when the notification is triggered. These notifications are a one-time trigger, and you have to call the methods again if you want to re-subscribe. In this project, we are only concerned with the following methods:
-- getChildren => returns a list of the children under a given path (znode) (optionally pass a Watcher)
-- exists => to check if a znode exists  (optionally pass a Watcher)
-- getData => Return the data of the znode of the given path  (optionally pass a Watcher)
-- 
+The other important feature offered by ZooKeeper and used in this project is Watchers. This allows the ZooKeeper client to be notified when a change in a znode happens (if its data changes, or if a node is added/deleted under its path). From the (Java) programming perspective, if you want to subscribe to notifications, you need to pass an implementation of the Watcher interface when you call one of the corresponding methods. This implementation will receive a callback when the notification is triggered. These notifications are a one-time trigger, and you have to call the methods again if you want to re-subscribe. In this project, we are only concerned with the following methods:
+- getChildren => returns a list of the children under a given path (znode) (optionally receives a Watcher)
+- exists => to check if a znode exists  (optionally receives a Watcher)
+- getData => Return the data of the znode of the given path  (optionally receives a Watcher)
+
 More info on ZooKeeper´s API: https://zookeeper.apache.org/doc/r3.3.3/api/org/apache/zookeeper/ZooKeeper.html
 
 
@@ -110,7 +110,7 @@ In the following example from ZooKeeper's CLI, the process which created znode c
 
 ![image](https://user-images.githubusercontent.com/25701657/183562914-e0624274-dc66-4fad-acfb-61a2df9acaec.png)
 
-The below diagram shows another hypothetical configuration. The dashed line connects the znodes with the process that created them.
+The below diagram shows another hypothetical configuration. The dashed line connects the znodes with the process that created it.
 
 ![image](https://user-images.githubusercontent.com/25701657/183563702-da6b15f7-1235-4c70-9c03-067a32345588.png)
 
@@ -148,7 +148,7 @@ Just press the “Kill instance” button in one of the rows (or stop one of the
 ### If you stop a worker node
 
 In this case, the leader node can still respond to the web server´s query for the state of the cluster. What will happen eventually, after the re-election process, it's just that the "Watching znode" column of the node listening to the deleted znodes trigger will get updated, closing the gap in the chain, in the same way as depicted in the third diagram under the **How does re-election happen? section**.  
-The following is a succession of images showing this process when node 8084 is killed.
+The following is a succession of images showing this process when node 8083 is killed.
 
 ![image](https://user-images.githubusercontent.com/25701657/183573697-515dc4c3-6b3b-4134-af69-c2e6288de015.png)
 The initial state of the cluster
@@ -158,12 +158,6 @@ Outdated state seconds after node4 got terminated. Node1 is watching zNode c_00.
 
 ![image](https://user-images.githubusercontent.com/25701657/183573987-f093b77c-e6fa-44b6-a26e-0dd90e2837eb.png)
 Leader re-lection completed after some more seconds. Node1 has been updated and is watching zNode c_00...0013, its new predecessor.
-
-State of the cluster before stopping node listening on 8084.
-
-Node listening on 8084 disappears from the table. The “Watching Znode” field of node listening on port 8083 is still outdated.
-
-After a couple of seconds, when leader reelection ends, the “Watching Znode” field of node listening on port 8083 it´s updated to point to c_00000000000, closing the gap.
 
 ### If you stop a leader node  
 

@@ -1,6 +1,15 @@
-## Table of contents
 
-- [What´s this?](#whats-this)
+
+
+## What´s this?
+
+This repository contains an example of a working implementation of **Leader Election** and **Service Discovery** with **ZooKeeper**. In addition, it has a web server serving a front-end that allows for the **visualization of the cluster's state**. The whole application, including a ZooKeeper instance, is dockerized and can be run with a single docker-compose command.
+
+  ![image](https://user-images.githubusercontent.com/25701657/183554630-ea8eac2c-c9fe-4c8d-87cb-6f7370bb5b76.png)
+  
+  ## Table of contents
+
+
 - [How to run?](#how-to-run)
 - [What exactly does the docker-compose.yml file include?](#what-exactly-does-the-docker-composeyml-file-include)
 - [What do the table's rows mean?](#what-do-the-tables-rows-mean)
@@ -16,13 +25,6 @@
   - [If you add a node](#if-you-add-a-node)
 
 
-
-
-## What´s this?
-
-This repository contains an example of a working implementation of **Leader Election** and **Service Discovery** with **ZooKeeper**. In addition, it has a web server serving a front-end that allows for the **visualization of the cluster's state**. The whole application, including a ZooKeeper instance, is dockerized and can be run with a single docker-compose command.
-
-  ![image](https://user-images.githubusercontent.com/25701657/183554630-ea8eac2c-c9fe-4c8d-87cb-6f7370bb5b76.png)
 
 ## How to run?
 
